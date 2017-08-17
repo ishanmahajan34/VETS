@@ -1,55 +1,68 @@
 package com.cdk.vets.model;
 
-import com.sun.javafx.beans.IDProperty;
+import javax.persistence.*;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement
+//enum STATUS {
+//    SOLD, AVAILABLE
+//}
+
 @Entity
-@Table(name = "car_detail")
+@Table(name = "car_details")
 public class Car {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int vin;
+    private int carId;
 
-    String name;
+    @Column(nullable = false, length = 20)
+    private String make;
 
-    String make;
+    @Column(nullable = false, length = 20)
+    private String model;
 
-    double price;
+    @Column(nullable = false, length = 4)
+    private int year;
 
-    int qty;
+    private double price;
+    private int distance;
+    //    private STATUS status;
+    private boolean availability;
+    private String image;
 
+    public Car(){
 
-    public Car() {
     }
 
-    public Car(int vin, String name, String make, double price, int qty) {
-        this.vin = vin;
-        this.name = name;
+    public Car(String make, String model, int year, double price, int distance, String image,boolean availability) {
         this.make = make;
+        this.model = model;
+        this.year = year;
         this.price = price;
-        this.qty = qty;
+        this.distance = distance;
+//        this.status = status;
+        this.image = image;
+        this.availability = availability;
     }
 
-    public int getVin() {
-        return vin;
+    public Car(int carId,String make, String model, int year, double price, int distance, String image, boolean availability) {
+        this.carId = carId;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.price = price;
+        this.distance = distance;
+//        this.status = status;
+        this.image = image;
+        this.availability = availability;
     }
 
-    public void setVin(int vin) {
-        this.vin = vin;
+    public int getCarId() {
+        return carId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setCarId(int carId) {
+        this.carId = carId;
     }
 
     public String getMake() {
@@ -60,7 +73,22 @@ public class Car {
         this.make = make;
     }
 
-    @XmlTransient
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -69,23 +97,49 @@ public class Car {
         this.price = price;
     }
 
-    public int getQty() {
-        return qty;
+    public int getDistance() {
+        return distance;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
+//    public STATUS getStatus() {
+//        return status;
+//    }
+
+//    public void setStatus(STATUS status) {
+//        this.status = status;
+//    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
 
     @Override
     public String toString() {
         return "Car{" +
-                "vin=" + vin +
-                ", name='" + name + '\'' +
+                "carId=" + carId +
                 ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", availability=" + availability +
                 ", price=" + price +
-                ", qty=" + qty +
+                ", distance=" + distance +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
